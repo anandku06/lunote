@@ -6,11 +6,11 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const app = e();
-
+const PORT = process.env.PORT || 5001
 connectDB()
 
 app.use("/api/notes", noteRoutes);
 
-app.listen(5001, () => {
-  console.log("Server started on PORT: 5001");
+app.listen(PORT, () => {
+  console.log(`Server started on PORT: ${PORT}`);
 });
