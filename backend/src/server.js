@@ -12,6 +12,12 @@ connectDB()
 // Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
 app.use(e.json())
 
+// our simple custom middleware
+app.use((req, res, next) => {
+  console.log(`Req method is ${req.method} and Req URL is ${req}`);
+  next()
+})
+
 app.use("/api/notes", noteRoutes);
 
 app.listen(PORT, () => {
