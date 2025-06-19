@@ -1,13 +1,40 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import RateLimitUI from "../components/RateLimitUI";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
-  return (
-    <div className='min-h-screen'>
-      <Navbar />
-      
-    </div>
-  )
-}
+  const [isRateLimited, setIsRateLimited] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default HomePage
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const res = await axios.get("http://localhost:5001/api/notes");
+        console.log(res.data);
+        setNotes(res.data);
+        setLoading(false);
+        setIsRateLimited(false);
+      } catch (error) {
+        if(error.response.status === 429){
+          setIsRateLimited(true)
+        } else {
+          toast.error("Failed to load notes!")
+        }
+      }
+    };
+
+    fetchNotes();
+  }, []);
+
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      {isRateLimited && <RateLimitUI />}
+    </div>
+  );
+};
+
+export default HomePage;
