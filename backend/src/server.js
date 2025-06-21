@@ -12,11 +12,11 @@ const app = e();
 const PORT = process.env.PORT || 5001;
 
 // Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
-app.use(e.json());
-app.use(rateLimiter);
 app.use(cors({
   origin : "http://localhost:5173"
 }))
+app.use(e.json());
+app.use(rateLimiter);
 
 // our simple custom middleware
 // app.use((req, res, next) => {
