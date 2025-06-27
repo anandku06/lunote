@@ -1,0 +1,12 @@
+{
+  "name": "lunote",
+  "version": "1.0.0",
+  "description": "- A note taking app",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
